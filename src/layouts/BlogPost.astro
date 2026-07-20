@@ -5,82 +5,106 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import { AUTHOR, CATEGORIES } from '../consts';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Post = CollectionEntry<'blog'>;
+interface Heading { depth: number; slug: string; text: string; }
+interface Props {
+	post: Post;
+	headings: Heading[];
+	previous?: Post;
+	next?: Post;
+	related?: Post[];
+}
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { post, headings, previous, next, related = [] } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, category, tags, series, draft } = post.data;
+const categorySlug = CATEGORIES.find((item) => item.name === category)?.slug ?? 'ai';
+const toc = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+const articleJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'Article',
+	headline: title,
+	description,
+	datePublished: pubDate.toISOString(),
+	dateModified: (updatedDate ?? pubDate).toISOString(),
+	author: { '@type': 'Person', name: AUTHOR },
+	mainEntityOfPage: Astro.url.href,
+};
 ---
 
-<html lang="en">
-	<head>
-		<BaseHead title={title} description={description} />
-		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
-	</head>
-
+<!doctype html>
+<html lang="zh-CN">
+	<head><BaseHead title={title} description={description} image={heroImage} type="article" jsonLd={articleJsonLd} /></head>
 	<body>
 		<Header />
 		<main>
 			<article>
-				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
+				<header class="article-header container">
+					{draft && <span class="draft-badge">草稿预览</span>}
+					<div class="article-meta"><a href={`/category/${categorySlug}/`}>{category}</a><span>·</span><FormattedDate date={pubDate} />{updatedDate && <><span>·</span><span>更新于 <FormattedDate date={updatedDate} /></span></>}</div>
+					<h1>{title}</h1>
+					<p>{description}</p>
+					<div class="tag-row">{tags.map((tag) => <a href={`/tag/${encodeURIComponent(tag)}/`}>#{tag}</a>)}</div>
+				</header>
+
+				{heroImage && <div class="hero-image container"><Image width={1120} height={620} src={heroImage} alt={title} /></div>}
+
+				<div class="article-shell container">
+					<aside>
+						{series && <div class="series"><span>系列文章</span><strong>{series}</strong></div>}
+						{toc.length > 0 && <nav aria-label="文章目录"><p>本文目录</p>{toc.map((heading) => <a class:list={[`depth-${heading.depth}`]} href={`#${heading.slug}`}>{heading.text}</a>)}</nav>}
+					</aside>
+					<div class="prose"><slot /></div>
 				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
-						<h1>{title}</h1>
-						<hr />
+
+				<footer class="post-footer container">
+					<div class="post-nav">
+						{previous ? <a href={`/blog/${previous.id}/`}><span>← 上一篇</span><strong>{previous.data.title}</strong></a> : <div />}
+						{next ? <a class="next" href={`/blog/${next.id}/`}><span>下一篇 →</span><strong>{next.data.title}</strong></a> : <div />}
 					</div>
-					<slot />
-				</div>
+					{related.length > 0 && <section class="related"><p class="eyebrow">KEEP READING</p><h2>继续阅读</h2><div>{related.map((item) => <a href={`/blog/${item.id}/`}><span>{item.data.category}</span><strong>{item.data.title}</strong></a>)}</div></section>}
+				</footer>
 			</article>
 		</main>
+		<a class="back-top" href="#top" aria-label="返回顶部">↑</a>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	.article-header { max-width: 900px; padding-top: 92px; text-align: center; }
+	.draft-badge { display: inline-block; margin-bottom: 16px; padding: 5px 12px; border-radius: 99px; background: #f7dfad; color: #76520c; font-size: 12px; font-weight: 800; }
+	.article-meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; color: var(--muted); font-size: 13px; }
+	.article-meta a { color: var(--accent); font-weight: 800; text-decoration: none; }
+	.article-header h1 { margin: 20px 0; font-size: clamp(42px, 7vw, 72px); letter-spacing: -.055em; line-height: 1.08; }
+	.article-header > p { max-width: 700px; margin: 0 auto; color: var(--muted); font-size: 18px; }
+	.tag-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 22px; }
+	.tag-row a { padding: 5px 10px; border-radius: 99px; background: var(--surface); color: var(--muted); font-size: 12px; text-decoration: none; }
+	.hero-image { margin-top: 56px; }
+	.hero-image :global(img) { width: 100%; max-height: 660px; object-fit: cover; border-radius: 26px; box-shadow: var(--shadow); }
+	.article-shell { display: grid; grid-template-columns: 220px minmax(0, 720px); gap: 70px; justify-content: center; padding-top: 72px; }
+	aside { align-self: start; position: sticky; top: 100px; }
+	.series { margin-bottom: 24px; padding: 15px; border-radius: 12px; background: var(--accent-soft); }
+	.series span, aside nav > p { display: block; margin: 0 0 8px; color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: .1em; }
+	.series strong { display: block; font-size: 14px; }
+	aside nav { padding-top: 18px; border-top: 1px solid var(--line); }
+	aside nav a { display: block; margin: 8px 0; color: var(--muted); font-size: 13px; line-height: 1.45; text-decoration: none; }
+	aside nav a:hover { color: var(--accent); }
+	aside nav .depth-3 { padding-left: 14px; font-size: 12px; }
+	.post-footer { max-width: 1010px; margin-top: 90px; }
+	.post-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; padding: 34px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+	.post-nav a { display: flex; flex-direction: column; gap: 6px; color: var(--ink); text-decoration: none; }
+	.post-nav span { color: var(--muted); font-size: 12px; }
+	.post-nav strong { font-size: 16px; }
+	.post-nav .next { text-align: right; }
+	.related { padding-top: 68px; }
+	.related h2 { margin: 0 0 24px; font-size: 34px; }
+	.related > div { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+	.related a { display: flex; flex-direction: column; min-height: 130px; padding: 22px; border: 1px solid var(--line); border-radius: 16px; color: var(--ink); text-decoration: none; }
+	.related a span { color: var(--accent); font-size: 12px; font-weight: 800; }
+	.related a strong { margin-top: 18px; line-height: 1.4; }
+	.back-top { position: fixed; right: 22px; bottom: 22px; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: var(--ink); color: white; text-decoration: none; box-shadow: var(--shadow); }
+	@media (max-width: 900px) { .article-shell { grid-template-columns: minmax(0, 720px); } aside { display: none; } }
+	@media (max-width: 600px) { .article-header { padding-top: 58px; } .hero-image { width: 100%; margin-top: 40px; } .hero-image :global(img) { border-radius: 0; } .article-shell { padding-top: 45px; } .post-nav, .related > div { grid-template-columns: 1fr; } .post-nav .next { text-align: left; } }
+</style>

@@ -1,63 +1,88 @@
-# Astro Starter Kit: Blog
+# 阿雷实验室
 
-```sh
-npm create astro@latest -- --template blog
+一个使用 Astro、TypeScript、Markdown/MDX 和 Content Collections 构建的中文个人内容网站。网站为纯静态输出，不需要数据库，适合由 Codex 等 AI Agent 长期协助维护。
+
+## 本地使用
+
+需要 Node.js 22.12 或更高版本。
+
+```bash
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+开发地址默认是 `http://localhost:4321`。
 
-Features:
+生成正式静态网站：
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+```bash
+npm run build
+```
 
-## 🚀 Project Structure
+生成结果位于 `dist/`。
 
-Inside of your Astro project, you'll see the following folders and files:
+## 新增文章
+
+在 `src/content/blog/` 新建一个英文小写、使用短横线分隔的 `.md` 文件，例如：
 
 ```text
-├── public/
-├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+src/content/blog/my-new-article.md
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+推荐从下面的 Frontmatter 开始：
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```yaml
+---
+title: "文章标题"
+description: "文章摘要"
+pubDate: 2026-07-21
+updatedDate: 2026-07-21
+heroImage: "../../assets/article-cover.jpg"
+category: "AI 工具"
+tags: ["AI", "教程"]
+draft: true
+featured: false
+series: "可选的系列名称"
+---
+```
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+可用分类只能是：`AI 工具`、`NAS 数码`、`效率软件`、`内容创作`、`家庭教育`。
 
-Any static assets, like images, can be placed in the `public/` directory.
+- `draft: true`：正式构建时不生成文章页面，也不会出现在 RSS 中。
+- `featured: true`：有机会显示在首页推荐位。
+- `updatedDate`、`heroImage` 和 `series` 可以省略。
 
-## 🧞 Commands
+图片可以放在 `src/assets/`，文章 Frontmatter 使用相对于文章文件的路径。普通静态文件也可以放在 `public/images/`，正文中使用 `/images/文件名.jpg` 引用。
 
-All commands are run from the root of the project, from a terminal:
+## 修改网站信息
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+- 网站名称、简介、作者、导航、分类和社交链接：`src/consts.ts`
+- 正式域名：设置构建环境变量 `SITE_URL`，或者修改 `astro.config.mjs` 中的占位域名
+- 首页内容：`src/pages/index.astro`
+- 关于页面：`src/pages/about.astro`
+- 全局视觉样式：`src/styles/global.css`
 
-## 👀 Want to learn more?
+上线前务必把 `https://example.com` 替换为正式域名，否则 canonical、RSS 和 sitemap 会使用占位地址。
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## GitHub 与 Vercel
 
-## Credit
+1. 在 GitHub 创建一个空仓库。
+2. 将本项目连接到该仓库并推送。
+3. 在 Vercel 中导入仓库。
+4. 构建命令使用 `npm run build`，输出目录使用 `dist`。
+5. 在 Vercel 中配置 `SITE_URL=https://你的正式域名`。
 
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+静态 Astro 项目不需要数据库或额外的服务器端运行环境。
+
+## 推荐的 AI Agent 工作流
+
+给 Agent 提供口播稿或原始笔记，并要求它：
+
+1. 保留核心观点，不虚构个人经历。
+2. 整理为结构清晰的 Markdown。
+3. 生成合规的标题、摘要、分类和标签。
+4. 新文章先设置 `draft: true`。
+5. 写入后运行 `npm run build`。
+6. 未经人工确认，不修改为正式发布状态，也不执行推送。
+
+人工审核完成后，把 `draft` 改成 `false`，再次构建检查，再提交到 GitHub。

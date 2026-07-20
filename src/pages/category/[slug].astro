@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import ArticleCard from '../../components/ArticleCard.astro';
+import PageLayout from '../../layouts/PageLayout.astro';
+import { CATEGORIES } from '../../consts';
+
+export function getStaticPaths() {
+	return CATEGORIES.map((category) => ({ params: { slug: category.slug }, props: { category } }));
+}
+
+const { category } = Astro.props;
+const posts = (await getCollection('blog', ({ data }) => (!import.meta.env.PROD || !data.draft) && data.category === category.name))
+	.filter((post) => !post.data.draft)
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<PageLayout title={category.name} description={category.description}>
+	<div class="container">
+		<header class="page-hero"><p class="eyebrow">CATEGORY</p><h1>{category.name}</h1><p>{category.description}</p></header>
+		{posts.length ? <div class="post-grid">{posts.map((post) => <ArticleCard post={post} />)}</div> : <div class="empty-state">这个分类的文章正在整理中。</div>}
+	</div>
+</PageLayout>

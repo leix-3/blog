@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import ArticleCard from '../../components/ArticleCard.astro';
+import PageLayout from '../../layouts/PageLayout.astro';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog', ({ data }) => !data.draft);
+	const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
+	return tags.map((tag) => ({ params: { tag }, props: { tag } }));
+}
+
+const { tag } = Astro.props;
+const posts = (await getCollection('blog', ({ data }) => !data.draft && data.tags.includes(tag)))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<PageLayout title={`标签：${tag}`} description={`阿雷实验室中与 ${tag} 相关的文章。`}>
+	<div class="container">
+		<header class="page-hero"><p class="eyebrow">TAG</p><h1>#{tag}</h1><p>共整理了 {posts.length} 篇相关实践文章。</p></header>
+		<div class="post-grid">{posts.map((post) => <ArticleCard post={post} />)}</div>
+	</div>
+</PageLayout>
