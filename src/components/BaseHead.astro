@@ -35,6 +35,15 @@ const fullTitle = title === SITE_TITLE ? title : `${title} · ${SITE_TITLE}`;
 />
 <meta name="generator" content={Astro.generator} />
 
+<script is:inline>
+	try {
+		const savedTheme = localStorage.getItem('alei-theme');
+		document.documentElement.dataset.theme = savedTheme === 'editorial' ? 'editorial' : 'natural';
+	} catch {
+		document.documentElement.dataset.theme = 'natural';
+	}
+</script>
+
 <Font cssVariable="--font-atkinson" preload />
 
 <!-- Canonical URL -->
