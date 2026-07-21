@@ -1,0 +1,114 @@
+locale: zh_Hans
+
+# 正式上线前，将下面两个占位地址替换为真实的 GitHub 仓库和 OAuth 服务地址。
+backend:
+  name: github
+  repo: your-github-name/alei-lab
+  branch: main
+  base_url: https://your-oauth-domain.example.com
+  auth_endpoint: auth
+  commit_messages:
+    create: "内容后台：新建 {{collection}}《{{slug}}》"
+    update: "内容后台：更新 {{collection}}《{{slug}}》"
+    delete: "内容后台：删除 {{collection}}《{{slug}}》"
+    uploadMedia: "内容后台：上传 {{path}}"
+    deleteMedia: "内容后台：删除 {{path}}"
+
+# 本地开发时可以配合 Decap 本地代理直接编辑当前仓库。
+local_backend: true
+
+media_folder: src/assets/uploads
+public_folder: ../../assets/uploads
+
+collections:
+  - name: blog
+    label: 文章
+    label_singular: 文章
+    folder: src/content/blog
+    create: true
+    extension: md
+    format: frontmatter
+    identifier_field: title
+    slug: "{{slug}}"
+    summary: "{{title}} · {{category}} · {{pubDate}}"
+    sortable_fields: [pubDate, updatedDate, title, category]
+    view_filters:
+      - label: 草稿
+        field: draft
+        pattern: true
+      - label: 已发布
+        field: draft
+        pattern: false
+      - label: 首页推荐
+        field: featured
+        pattern: true
+    view_groups:
+      - label: 分类
+        field: category
+    fields:
+      - label: 标题
+        name: title
+        widget: string
+        hint: 清楚说明文章解决什么问题。
+      - label: 摘要
+        name: description
+        widget: text
+        hint: 建议控制在 60～120 个中文字符，用于列表和搜索摘要。
+      - label: 发布时间
+        name: pubDate
+        widget: datetime
+        date_format: YYYY-MM-DD
+        time_format: false
+        format: YYYY-MM-DD
+      - label: 更新时间
+        name: updatedDate
+        widget: datetime
+        date_format: YYYY-MM-DD
+        time_format: false
+        format: YYYY-MM-DD
+        required: false
+      - label: 封面图
+        name: heroImage
+        widget: image
+        required: false
+        choose_url: false
+        media_library:
+          config:
+            multiple: false
+      - label: 分类
+        name: category
+        widget: select
+        options:
+          - AI 工具
+          - NAS 数码
+          - 效率软件
+          - 内容创作
+          - 家庭教育
+      - label: 标签
+        name: tags
+        widget: list
+        allow_add: true
+        collapsed: false
+        field:
+          label: 标签
+          name: tag
+          widget: string
+      - label: 系列名称
+        name: series
+        widget: string
+        required: false
+      - label: 草稿
+        name: draft
+        widget: boolean
+        default: true
+        hint: 开启时不会出现在正式网站；检查完成后关闭再保存即可发布。
+      - label: 首页推荐
+        name: featured
+        widget: boolean
+        default: false
+      - label: 正文
+        name: body
+        widget: markdown
+        modes: [rich_text, raw]
+        buttons: [bold, italic, code, link, heading-two, heading-three, quote, bulleted-list, numbered-list]
+        editor_components: [image, code-block]

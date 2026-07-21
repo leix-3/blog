@@ -13,6 +13,7 @@ import HeaderLink from './HeaderLink.astro';
 			{NAV_LINKS.map((link) => <HeaderLink href={link.href}>{link.label}</HeaderLink>)}
 		</div>
 		<div class="nav-actions">
+			<a class="admin-link" href="/admin/" aria-label="进入内容管理后台">管理</a>
 			<button class="theme-toggle" type="button" data-theme-toggle aria-label="切换网站皮肤" aria-pressed="false">
 				<span class="theme-swatch" aria-hidden="true"></span>
 				<span data-theme-label>墨夜</span>
@@ -81,6 +82,8 @@ import HeaderLink from './HeaderLink.astro';
 		gap: 26px;
 	}
 	.nav-actions { display: flex; align-items: center; gap: 9px; }
+	.admin-link { color: var(--muted); font-size: 13px; font-weight: 750; text-decoration: none; }
+	.admin-link:hover { color: var(--accent); }
 	.theme-toggle {
 		display: flex;
 		gap: 8px;

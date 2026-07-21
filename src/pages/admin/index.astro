@@ -1,0 +1,24 @@
+---
+export const prerender = true;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="noindex, nofollow" />
+		<meta name="theme-color" content="#17231c" />
+		<title>内容后台 · 阿雷实验室</title>
+		<style>
+			:root { color-scheme: light; }
+			body { margin: 0; background: #f7f8f5; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; }
+			.loading { display: grid; min-height: 100vh; place-items: center; color: #607067; }
+			.loading strong { display: block; margin-bottom: 8px; color: #17231c; font-size: 24px; }
+		</style>
+	</head>
+	<body>
+		<div class="loading"><div><strong>阿雷实验室</strong>正在打开内容后台…</div></div>
+		<script is:inline src="https://unpkg.com/decap-cms@3.12.2/dist/decap-cms.js"></script>
+	</body>
+</html>

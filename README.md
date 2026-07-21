@@ -86,3 +86,24 @@ series: "可选的系列名称"
 6. 未经人工确认，不修改为正式发布状态，也不执行推送。
 
 人工审核完成后，把 `draft` 改成 `false`，再次构建检查，再提交到 GitHub。
+
+## 内容管理后台
+
+网站包含 `/admin/` 内容管理入口，使用 Decap CMS 管理 `src/content/blog/` 中的 Markdown 文章。
+
+后台支持：
+
+- 新建和编辑文章
+- 设置分类、标签、发布时间和封面
+- 切换草稿与正式发布状态
+- 上传文章图片
+- 将修改提交回 GitHub，并触发托管平台重新构建
+
+正式启用登录前，需要先完成以下配置：
+
+1. 将网站代码上传到 GitHub。
+2. 修改 `public/admin/config.yml` 中的 `repo` 为真实仓库，例如 `username/alei-lab`。
+3. 建立 GitHub OAuth App 和 OAuth 代理。
+4. 将 `base_url` 修改为 OAuth 代理域名。
+
+不要把 GitHub Client Secret、访问令牌或后台密码写进仓库或前端文件。OAuth 代理的密钥只能配置在托管平台的安全环境变量中。
