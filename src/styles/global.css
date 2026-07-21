@@ -103,8 +103,6 @@ button, input, textarea { font: inherit; }
 .prose pre code { padding: 0; background: transparent; }
 .prose img { display: block; margin: 2em auto; border-radius: 16px; box-shadow: var(--shadow); }
 .prose hr { margin: 3em 0; border: 0; border-top: 1px solid var(--line); }
-.prose .video-embed { position: relative; overflow: hidden; width: 100%; margin: 1.5em 0 1em; padding-top: 56.25%; border: 1px solid var(--line); border-radius: 18px; background: var(--code-block); box-shadow: var(--shadow); }
-.prose .video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
 .sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
