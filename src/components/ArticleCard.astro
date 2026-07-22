@@ -6,9 +6,10 @@ import FormattedDate from './FormattedDate.astro';
 interface Props {
 	post: CollectionEntry<'blog'>;
 	featured?: boolean;
+	compact?: boolean;
 }
 
-const { post, featured = false } = Astro.props;
+const { post, featured = false, compact = false } = Astro.props;
 
 function categorySlug(category: string) {
 	return {
@@ -21,7 +22,7 @@ function categorySlug(category: string) {
 }
 ---
 
-<article class:list={['article-card', { featured }]}>
+<article class:list={['article-card', { featured, compact }]}>
 	<a class="cover" href={`/blog/${post.id}/`} aria-label={`阅读《${post.data.title}》`}>
 		{post.data.heroImage ? (
 			<Image src={post.data.heroImage} width={featured ? 900 : 560} height={featured ? 540 : 340} alt={post.data.title} />
@@ -61,6 +62,13 @@ function categorySlug(category: string) {
 	.featured .content { padding: 0; }
 	.featured h3 { font-size: clamp(28px, 4vw, 44px); letter-spacing: -.03em; }
 	.featured p { font-size: 17px; }
+	.compact .cover { border-radius: 14px; }
+	.compact .content { padding-top: 13px; }
+	.compact .meta { gap: 6px; font-size: 12px; }
+	.compact h3 { display: -webkit-box; overflow: hidden; margin: 7px 0 6px; font-size: 18px; line-height: 1.4; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+	.compact p { display: -webkit-box; overflow: hidden; font-size: 13px; line-height: 1.65; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+	.compact .tags { gap: 7px; margin-top: 10px; }
+	.compact .tags a { font-size: 11px; }
 	@media (max-width: 760px) {
 		.featured { display: block; }
 		.featured .content { padding-top: 20px; }

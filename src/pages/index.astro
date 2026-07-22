@@ -2,13 +2,16 @@
 import { getCollection } from 'astro:content';
 import ArticleCard from '../components/ArticleCard.astro';
 import PageLayout from '../layouts/PageLayout.astro';
-import { CATEGORIES, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
 const posts = (await getCollection('blog', ({ data }) => !import.meta.env.PROD || !data.draft))
 	.filter((post) => !post.data.draft)
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-const featured = posts.find((post) => post.data.featured) ?? posts[0];
-const latest = posts.filter((post) => post.id !== featured?.id).slice(0, 4);
+const latest = posts.slice(0, 4);
+const popularTags = [...new Set(posts.flatMap((post) => post.data.tags))]
+	.map((tag) => ({ tag, count: posts.filter((post) => post.data.tags.includes(tag)).length }))
+	.sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag, 'zh-CN'))
+	.slice(0, 8);
 const websiteJsonLd = {
 	'@context': 'https://schema.org',
 	'@type': 'WebSite',
@@ -19,60 +22,37 @@ const websiteJsonLd = {
 ---
 
 <PageLayout title={SITE_TITLE} description={SITE_DESCRIPTION} jsonLd={websiteJsonLd}>
-	<section class="hero">
-		<div class="container hero-grid">
-			<div>
-				<p class="eyebrow">A LEI LAB · 实践者的数字笔记</p>
-				<h1>把复杂技术，<br /><span>变成用得上的方法。</span></h1>
-				<p class="hero-copy">这里记录我关于 AI、NAS、效率工具和家庭数字生活的真实实践。不是新闻搬运，而是亲自用过之后留下的答案。</p>
-				<div class="hero-actions">
-					<a class="primary" href="/blog/">开始阅读 <span>→</span></a>
-					<a class="secondary" href="/about/">认识阿雷</a>
-				</div>
-			</div>
-			<div class="lab-panel" aria-label="阿雷实验室内容方向">
-				<div class="panel-head"><span>正在研究</span><span class="status">持续更新</span></div>
-				<div class="orbit"><span>AI</span><span>NAS</span><span>效率</span><span>创作</span><strong>实践</strong></div>
-				<p>从问题出发，经过测试、踩坑和复盘，最后沉淀成可以重复使用的方法。</p>
-			</div>
-		</div>
-	</section>
-
-	{featured && (
-		<section class="featured-section container">
-			<div class="section-heading">
-				<div><p class="eyebrow">EDITOR'S PICK</p><h2>本期推荐</h2></div>
-				<p>从最近的实践里，挑出一篇值得花时间读完的文章。</p>
-			</div>
-			<ArticleCard post={featured} featured />
-		</section>
-	)}
-
-	<section class="categories container">
-		<div class="section-heading">
-			<div><p class="eyebrow">EXPLORE</p><h2>从你的问题开始</h2></div>
-			<p>五个长期关注的方向，也是一套不断生长的个人知识系统。</p>
-		</div>
-		<div class="category-grid">
-			{CATEGORIES.map((category, index) => (
-				<a href={`/category/${category.slug}/`}>
-					<span class="number">0{index + 1}</span>
-					<strong>{category.name}</strong>
-					<p>{category.description}</p>
-					<span class="arrow">↗</span>
-				</a>
-			))}
-		</div>
-	</section>
-
 	<section class="latest container">
 		<div class="section-heading">
 			<div><p class="eyebrow">LATEST NOTES</p><h2>最新文章</h2></div>
 			<a class="all-link" href="/blog/">查看全部文章 →</a>
 		</div>
-		<div class="post-grid">
-			{latest.map((post) => <ArticleCard post={post} />)}
+		<div class="article-tools" data-article-tools>
+			<label class="search-box">
+				<span class="sr-only">搜索文章</span>
+				<span aria-hidden="true">⌕</span>
+				<input type="search" placeholder="搜索标题、分类或标签" autocomplete="off" data-article-search />
+			</label>
+			<div class="tag-filters" aria-label="按标签筛选文章">
+				<button class="active" type="button" data-tag-filter="" aria-pressed="true">全部</button>
+				{popularTags.map(({ tag }) => <button type="button" data-tag-filter={tag} aria-pressed="false">#{tag}</button>)}
+			</div>
 		</div>
+		<div class="post-grid">
+			{posts.map((post, index) => (
+				<div
+					class="post-item"
+					data-post-item
+					data-default-visible={index < latest.length ? 'true' : 'false'}
+					data-search={`${post.data.title} ${post.data.description} ${post.data.category} ${post.data.tags.join(' ')}`.toLocaleLowerCase('zh-CN')}
+					data-tags={post.data.tags.join('|')}
+					hidden={index >= latest.length}
+				>
+					<ArticleCard post={post} compact />
+				</div>
+			))}
+		</div>
+		<p class="no-results" data-no-results hidden>没有找到匹配的文章，换个关键词试试。</p>
 	</section>
 
 	<section class="about-strip">
@@ -87,42 +67,66 @@ const websiteJsonLd = {
 	</section>
 </PageLayout>
 
+<script>
+	const tools = document.querySelector<HTMLElement>('[data-article-tools]');
+	const search = document.querySelector<HTMLInputElement>('[data-article-search]');
+	const items = [...document.querySelectorAll<HTMLElement>('[data-post-item]')];
+	const buttons = [...document.querySelectorAll<HTMLButtonElement>('[data-tag-filter]')];
+	const noResults = document.querySelector<HTMLElement>('[data-no-results]');
+	let activeTag = '';
+
+	function updateArticles() {
+		const query = search?.value.trim().toLocaleLowerCase('zh-CN') ?? '';
+		const filtering = Boolean(query || activeTag);
+		let visibleCount = 0;
+
+		items.forEach((item) => {
+			const matchesQuery = !query || item.dataset.search?.includes(query);
+			const matchesTag = !activeTag || item.dataset.tags?.split('|').includes(activeTag);
+			const show = filtering ? Boolean(matchesQuery && matchesTag) : item.dataset.defaultVisible === 'true';
+			item.hidden = !show;
+			if (show) visibleCount += 1;
+		});
+
+		if (noResults) noResults.hidden = visibleCount > 0;
+	}
+
+	search?.addEventListener('input', updateArticles);
+	buttons.forEach((button) => {
+		button.addEventListener('click', () => {
+			activeTag = button.dataset.tagFilter ?? '';
+			buttons.forEach((item) => {
+				const active = item === button;
+				item.classList.toggle('active', active);
+				item.setAttribute('aria-pressed', String(active));
+			});
+			updateArticles();
+		});
+	});
+
+	tools?.classList.add('ready');
+</script>
+
 <style>
-	.hero { overflow: hidden; padding: 100px 0 110px; background: var(--hero-bg); }
-	.hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 80px; align-items: center; }
-	h1 { margin: 0; font-family: var(--display-font); font-size: clamp(48px, 7vw, 86px); letter-spacing: -.065em; line-height: 1.03; }
-	h1 span { color: var(--accent); }
-	.hero-copy { max-width: 650px; margin: 28px 0 0; color: var(--muted); font-size: 18px; }
-	.hero-actions { display: flex; gap: 14px; margin-top: 34px; }
-	.hero-actions a { padding: 13px 20px; border-radius: 999px; font-size: 15px; font-weight: 750; text-decoration: none; }
-	.primary { background: var(--primary-bg); color: var(--primary-ink); }
-	.primary span { margin-left: 14px; }
-	.secondary { border: 1px solid var(--line); color: var(--ink); background: var(--secondary-bg); }
-	.lab-panel { padding: 28px; border: 1px solid var(--line); border-radius: 28px; background: var(--panel-bg); box-shadow: var(--shadow); transform: rotate(1.5deg); }
-	.panel-head { display: flex; justify-content: space-between; color: var(--muted); font-size: 13px; font-weight: 750; }
-	.status { color: var(--accent); }
-	.status::before { content: ''; display: inline-block; width: 7px; height: 7px; margin-right: 7px; border-radius: 50%; background: #34a66d; }
-	.orbit { position: relative; display: grid; place-items: center; height: 300px; margin: 15px 0; border: 1px dashed var(--orbit-line); border-radius: 50%; }
-	.orbit::before { content: ''; position: absolute; inset: 50px; border: 1px solid var(--orbit-inner); border-radius: 50%; }
-	.orbit strong { z-index: 1; display: grid; place-items: center; width: 92px; height: 92px; border-radius: 50%; background: var(--accent); color: var(--primary-ink); font-size: 24px; box-shadow: var(--shadow); }
-	.orbit > span { position: absolute; padding: 6px 12px; border-radius: 99px; background: var(--pill-bg); color: var(--muted); font-size: 12px; box-shadow: var(--shadow); }
-	.orbit > span:nth-child(1) { top: 26px; left: 50%; } .orbit > span:nth-child(2) { right: 7px; top: 48%; } .orbit > span:nth-child(3) { bottom: 23px; left: 48%; } .orbit > span:nth-child(4) { left: 5px; top: 45%; }
-	.lab-panel > p { margin: 0; color: var(--muted); font-size: 14px; }
-	.featured-section, .categories, .latest { padding-top: 100px; }
-	.category-grid { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-	.category-grid a { position: relative; min-height: 240px; padding: 24px 22px; border-right: 1px solid var(--line); color: var(--ink); text-decoration: none; transition: background .2s ease; }
-	.category-grid a:first-child { border-left: 1px solid var(--line); }
-	.category-grid a:hover { background: var(--accent-soft); }
-	.number { color: var(--muted); font-size: 12px; }
-	.category-grid strong { display: block; margin-top: 48px; font-size: 22px; }
-	.category-grid p { color: var(--muted); font-size: 13px; line-height: 1.6; }
-	.arrow { position: absolute; right: 20px; bottom: 17px; color: var(--accent); }
+	.latest { padding-top: 58px; }
+	.latest .post-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 38px 22px; }
+	.post-item[hidden], .no-results[hidden] { display: none; }
+	.article-tools { display: grid; grid-template-columns: minmax(240px, .75fr) minmax(0, 1.8fr); gap: 18px; align-items: center; margin: -4px 0 30px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+	.search-box { display: flex; align-items: center; gap: 9px; min-height: 42px; padding: 0 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--muted); }
+	.search-box:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+	.search-box input { min-width: 0; width: 100%; border: 0; outline: 0; background: transparent; color: var(--ink); font-size: 14px; }
+	.search-box input::placeholder { color: var(--muted); }
+	.tag-filters { display: flex; overflow-x: auto; gap: 8px; padding: 2px 0; scrollbar-width: none; }
+	.tag-filters::-webkit-scrollbar { display: none; }
+	.tag-filters button { flex: 0 0 auto; padding: 7px 11px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); font-size: 12px; cursor: pointer; }
+	.tag-filters button:hover, .tag-filters button.active { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+	.no-results { margin: 44px 0 0; padding: 36px; border: 1px dashed var(--line); border-radius: 16px; color: var(--muted); text-align: center; }
 	.all-link { color: var(--accent); font-size: 14px; font-weight: 750; text-decoration: none; }
 	.about-strip { margin-top: 110px; padding: 90px 0; background: var(--deep-bg); color: var(--deep-ink); }
 	.about-grid { display: grid; grid-template-columns: .5fr 1fr 1fr; gap: 60px; align-items: start; }
 	.about-grid h2 { margin: 0; font-size: clamp(32px, 5vw, 54px); letter-spacing: -.04em; line-height: 1.15; }
 	.about-grid div p { margin: 0 0 24px; color: var(--deep-muted); }
 	.about-grid a { color: var(--deep-link); font-weight: 750; text-decoration: none; }
-	@media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } .lab-panel { max-width: 600px; } .category-grid { grid-template-columns: repeat(2, 1fr); } .category-grid a:last-child { grid-column: span 2; } .about-grid { grid-template-columns: 1fr; gap: 28px; } }
-	@media (max-width: 600px) { .hero { padding: 70px 0; } .hero-grid { gap: 48px; } .lab-panel { padding: 20px; } .orbit { height: 250px; } .featured-section, .categories, .latest { padding-top: 72px; } .category-grid { grid-template-columns: 1fr; } .category-grid a, .category-grid a:last-child { grid-column: auto; min-height: 190px; border-left: 1px solid var(--line); } }
+	@media (max-width: 900px) { .article-tools { grid-template-columns: 1fr; } .latest .post-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .about-grid { grid-template-columns: 1fr; gap: 28px; } }
+	@media (max-width: 600px) { .latest { padding-top: 42px; } .article-tools { margin-bottom: 24px; } .latest .post-grid { grid-template-columns: 1fr; } }
 </style>
