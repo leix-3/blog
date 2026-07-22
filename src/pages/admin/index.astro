@@ -8,17 +8,37 @@ export const prerender = true;
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="robots" content="noindex, nofollow" />
-		<meta name="theme-color" content="#17231c" />
+		<meta name="theme-color" content="#0f1612" />
 		<title>内容后台 · 阿雷实验室</title>
 		<style>
 			:root { color-scheme: light; }
-			body { margin: 0; background: #f7f8f5; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; }
-			.loading { display: grid; min-height: 100vh; place-items: center; color: #607067; }
-			.loading strong { display: block; margin-bottom: 8px; color: #17231c; font-size: 24px; }
+			* { box-sizing: border-box; }
+			body { margin: 0; background: #f3f5ef; color: #17231c; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; }
+			main { display: grid; min-height: 100vh; place-items: center; padding: 24px; }
+			.card { width: min(560px, 100%); padding: 48px; border: 1px solid #dce3db; border-radius: 28px; background: rgba(255,255,255,.88); box-shadow: 0 24px 80px rgba(29,49,37,.10); }
+			.eyebrow { margin: 0 0 18px; color: #66806e; font-size: 13px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+			h1 { margin: 0; font-size: clamp(34px, 7vw, 52px); letter-spacing: -.05em; line-height: 1.04; }
+			.description { margin: 20px 0 30px; color: #5b6a60; font-size: 17px; line-height: 1.8; }
+			.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+			a { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; padding: 0 20px; border-radius: 999px; font-weight: 800; text-decoration: none; }
+			.primary { background: #17231c; color: #fff; }
+			.secondary { border: 1px solid #ccd6ce; color: #2e4637; }
+			.note { margin: 26px 0 0; padding-top: 22px; border-top: 1px solid #e3e9e3; color: #718078; font-size: 13px; line-height: 1.7; }
+			@media (max-width: 540px) { .card { padding: 34px 24px; border-radius: 22px; } .actions a { width: 100%; } }
 		</style>
 	</head>
 	<body>
-		<div class="loading"><div><strong>阿雷实验室</strong>正在打开内容后台…</div></div>
-		<script is:inline src="https://unpkg.com/decap-cms@3.12.2/dist/decap-cms.js"></script>
+		<main>
+			<section class="card">
+				<p class="eyebrow">Alei Lab · Content Studio</p>
+				<h1>内容管理后台</h1>
+				<p class="description">登录 GitHub 后，可以新建、修改和发布文章，也可以上传封面图片。保存后，内容会回到 GitHub，并自动更新网站。</p>
+				<div class="actions">
+					<a class="primary" href="https://app.pagescms.org/" rel="noreferrer">登录并编辑文章</a>
+					<a class="secondary" href="/">返回网站首页</a>
+				</div>
+				<p class="note">首次使用时，请选择 GitHub 仓库 <strong>leix-3/blog</strong> 和 <strong>main</strong> 分支。后台不会把文章保存到另一套数据库。</p>
+			</section>
+		</main>
 	</body>
 </html>

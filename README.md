@@ -89,7 +89,7 @@ series: "可选的系列名称"
 
 ## 内容管理后台
 
-网站包含 `/admin/` 内容管理入口，使用 Decap CMS 管理 `src/content/blog/` 中的 Markdown 文章。
+网站包含 `/admin/` 内容管理入口，使用 Pages CMS 管理 `src/content/blog/` 中的 Markdown 文章。
 
 后台支持：
 
@@ -99,11 +99,11 @@ series: "可选的系列名称"
 - 上传文章图片
 - 将修改提交回 GitHub，并触发托管平台重新构建
 
-正式启用登录前，需要先完成以下配置：
+首次使用后台：
 
-1. 将网站代码上传到 GitHub。
-2. 修改 `public/admin/config.yml` 中的 `repo` 为真实仓库，例如 `username/alei-lab`。
-3. 建立 GitHub OAuth App 和 OAuth 代理。
-4. 将 `base_url` 修改为 OAuth 代理域名。
+1. 打开网站的 `/admin/`。
+2. 点击“登录并编辑文章”，使用 GitHub 登录 Pages CMS。
+3. 安装 Pages CMS GitHub App，并只授权 `leix-3/blog` 仓库。
+4. 选择 `main` 分支后即可编辑内容。
 
-不要把 GitHub Client Secret、访问令牌或后台密码写进仓库或前端文件。OAuth 代理的密钥只能配置在托管平台的安全环境变量中。
+后台配置位于仓库根目录的 `.pages.yml`。文章仍然保存在 GitHub 中，不使用独立内容数据库，也不要把访问令牌写进仓库。

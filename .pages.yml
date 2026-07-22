@@ -1,0 +1,98 @@
+media:
+  input: src/assets/uploads
+  output: ../../assets/uploads
+  rename: safe
+  categories: [image]
+
+content:
+  - name: blog
+    label: 文章
+    type: collection
+    path: src/content/blog
+    format: yaml-frontmatter
+    filename:
+      template: "{primary}.md"
+      field: create
+    view:
+      fields: [title, category, pubDate, draft, featured]
+      primary: title
+      sort: [pubDate, updatedDate, title, category]
+      search: [title, description, category, tags]
+      default:
+        sort: pubDate
+        order: desc
+    fields:
+      - name: title
+        label: 标题
+        type: string
+        required: true
+        description: 清楚说明文章解决什么问题。
+      - name: description
+        label: 摘要
+        type: text
+        required: true
+        description: 建议控制在 60～120 个中文字符，用于文章列表和搜索摘要。
+      - name: pubDate
+        label: 发布时间
+        type: date
+        required: true
+        options:
+          time: false
+          format: yyyy-MM-dd
+      - name: updatedDate
+        label: 更新时间
+        type: date
+        required: false
+        default: ""
+        options:
+          time: false
+          format: yyyy-MM-dd
+      - name: heroImage
+        label: 封面图
+        type: image
+        required: false
+        options:
+          categories: [image]
+          rename: safe
+      - name: category
+        label: 分类
+        type: select
+        required: true
+        options:
+          values: [AI 工具, NAS 数码, 效率软件, 内容创作, 家庭教育]
+      - name: tags
+        label: 标签
+        type: string
+        list: true
+      - name: series
+        label: 系列名称
+        type: string
+        required: false
+      - name: draft
+        label: 草稿
+        type: boolean
+        default: true
+        description: 开启时不会出现在正式网站；检查完成后关闭再保存即可发布。
+      - name: featured
+        label: 首页推荐
+        type: boolean
+        default: false
+      - name: body
+        label: 正文
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+          switcher: true
+          rename: safe
+
+settings:
+  content:
+    merge: true
+  commit:
+    identity: user
+    templates:
+      create: "内容后台：新建 {path}"
+      update: "内容后台：更新 {path}"
+      delete: "内容后台：删除 {path}"
+      rename: "内容后台：重命名 {oldPath} 为 {newPath}"
