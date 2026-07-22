@@ -1,6 +1,6 @@
 export const SITE_TITLE = '阿雷实验室';
 export const SITE_DESCRIPTION = '记录 AI、NAS、效率工具与家庭数字生活的真实实践。';
-export const SITE_URL = 'https://example.com';
+export const SITE_URL = 'https://alei-lab.vercel.app';
 export const AUTHOR = '阿雷';
 
 export const CATEGORIES = [
