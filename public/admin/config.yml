@@ -3,7 +3,7 @@ locale: zh_Hans
 # 正式上线前，将下面两个占位地址替换为真实的 GitHub 仓库和 OAuth 服务地址。
 backend:
   name: github
-  repo: your-github-name/alei-lab
+  repo: leix-3/blog
   branch: main
   base_url: https://your-oauth-domain.example.com
   auth_endpoint: auth
