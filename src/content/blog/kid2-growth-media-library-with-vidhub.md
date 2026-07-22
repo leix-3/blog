@@ -2,7 +2,7 @@
 title: Kid2.0 孩子个人成长影音库：搭建教程和懒人包资源
 description: Kid2.0 孩子个人成长影音库的 VidHub 下载入口、观影清单，以及移动云盘、115 网盘和夸克网盘资源汇总。
 pubDate: 2026-07-17
-updatedDate: 2026-07-22
+updatedDate: 2026-07-23
 heroImage: ../../assets/kid2-growth-media-library.jpg
 category: 家庭教育
 tags:
