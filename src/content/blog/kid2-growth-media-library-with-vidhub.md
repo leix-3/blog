@@ -1,16 +1,20 @@
 ---
-title: "Kid2.0 孩子个人成长影音库：搭建教程和懒人包资源"
-description: "Kid2.0 孩子个人成长影音库的 VidHub 下载入口、观影清单，以及移动云盘、115 网盘和夸克网盘资源汇总。"
+title: Kid2.0 孩子个人成长影音库：搭建教程和懒人包资源
+description: Kid2.0 孩子个人成长影音库的 VidHub 下载入口、观影清单，以及移动云盘、115 网盘和夸克网盘资源汇总。
 pubDate: 2026-07-17
 updatedDate: 2026-07-22
-heroImage: "../../assets/kid2-growth-media-library.jpg"
-category: "家庭教育"
-tags: ["Kid2.0", "VidHub", "家庭影音", "儿童教育", "资源清单"]
+heroImage: ../../assets/kid2-growth-media-library.jpg
+category: 家庭教育
+tags:
+  - Kid2.0
+  - VidHub
+  - 家庭影音
+  - 儿童教育
+  - 资源清单
 draft: false
 featured: true
-series: "家庭数字生活"
+series: 家庭数字生活
 ---
-
 > ▶️ [先看视频：低成本！搭建孩子专属私人成长影音库｜附懒人包＋清单，VidHub](https://www.bilibili.com/video/BV1Q9KJ6bEYw/)
 
 下面是本期视频配套的软件下载入口、儿童通识观影清单，以及 Kid2.0 相关资源链接。
@@ -31,9 +35,8 @@ series: "家庭数字生活"
 
 获取方法：
 
-1. [打开移动云盘分享链接](https://yun.139.com/shareweb/#/w/i/2w2KPwCQFrM6e)
-2. 输入提取码：`9jmf`
-3. 使用手机号登录并转存，不限运营商
+1. [打开移动云盘分享链接](https://yun.139.com/shareweb/#/w/i/2w2KVu5oVNq8k)
+2. 使用手机号登录并转存，不限运营商
 
 也可以通过移动云盘微信小程序注册并转存 Kid2.0 资源。
 
