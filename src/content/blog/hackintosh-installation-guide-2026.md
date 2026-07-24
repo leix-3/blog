@@ -4,6 +4,8 @@ description: "黑苹果安装视频教程，以及夸克、迅雷和百度网盘
 pubDate: 2026-06-21
 updatedDate: 2026-07-24
 heroImage: "../../assets/hackintosh-installation-guide-2026.png"
+videoBvid: "BV1WTjt6FEjR"
+videoTitle: "2026 年黑苹果（懒人）安装手把手教程，附带懒人包"
 category: "效率软件"
 tags:
   - 黑苹果
@@ -14,8 +16,6 @@ draft: false
 featured: false
 series: "电脑系统安装"
 ---
-
-> ▶️ [先看视频：2026 年黑苹果（懒人）安装手把手教程，附带懒人包](https://www.bilibili.com/video/BV1WTjt6FEjR/)
 
 本文汇总视频配套的黑苹果安装资源。建议先完整观看视频，确认自己的电脑硬件是否兼容，再选择一个网盘下载。
 

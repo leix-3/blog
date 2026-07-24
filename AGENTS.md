@@ -14,6 +14,7 @@ Manage the background server with `astro dev stop`, `astro dev status`, and `ast
 - When the user supplies a cover image, reuse it as the article cover.
 - When no cover is supplied, generate a relevant 16:9 cover before publishing.
 - New non-draft articles must appear automatically on the homepage; do not maintain a fixed manual list or hide articles after a fixed count.
+- When a Bilibili video accompanies an article, set `videoBvid` and `videoTitle` so the article shows an embedded player and an original-video fallback link.
 
 ## Documentation
 

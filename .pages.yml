@@ -54,6 +54,16 @@ content:
         options:
           categories: [image]
           rename: safe
+      - name: videoBvid
+        label: B站视频 BV 号
+        type: string
+        required: false
+        description: 例如 BV1WTjt6FEjR。填写后文章页会自动显示播放器。
+      - name: videoTitle
+        label: 视频标题
+        type: string
+        required: false
+        description: 用于播放器标题和跳转链接。
       - name: category
         label: 分类
         type: select
