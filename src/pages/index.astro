@@ -7,7 +7,6 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 const posts = (await getCollection('blog', ({ data }) => !import.meta.env.PROD || !data.draft))
 	.filter((post) => !post.data.draft)
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-const latest = posts.slice(0, 4);
 const popularTags = [...new Set(posts.flatMap((post) => post.data.tags))]
 	.map((tag) => ({ tag, count: posts.filter((post) => post.data.tags.includes(tag)).length }))
 	.sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag, 'zh-CN'))
@@ -39,14 +38,12 @@ const websiteJsonLd = {
 			</div>
 		</div>
 		<div class="post-grid">
-			{posts.map((post, index) => (
+			{posts.map((post) => (
 				<div
 					class="post-item"
 					data-post-item
-					data-default-visible={index < latest.length ? 'true' : 'false'}
 					data-search={`${post.data.title} ${post.data.description} ${post.data.category} ${post.data.tags.join(' ')}`.toLocaleLowerCase('zh-CN')}
 					data-tags={post.data.tags.join('|')}
-					hidden={index >= latest.length}
 				>
 					<ArticleCard post={post} compact />
 				</div>
@@ -77,13 +74,12 @@ const websiteJsonLd = {
 
 	function updateArticles() {
 		const query = search?.value.trim().toLocaleLowerCase('zh-CN') ?? '';
-		const filtering = Boolean(query || activeTag);
 		let visibleCount = 0;
 
 		items.forEach((item) => {
 			const matchesQuery = !query || item.dataset.search?.includes(query);
 			const matchesTag = !activeTag || item.dataset.tags?.split('|').includes(activeTag);
-			const show = filtering ? Boolean(matchesQuery && matchesTag) : item.dataset.defaultVisible === 'true';
+			const show = Boolean(matchesQuery && matchesTag);
 			item.hidden = !show;
 			if (show) visibleCount += 1;
 		});

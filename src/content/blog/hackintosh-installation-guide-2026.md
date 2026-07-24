@@ -3,6 +3,7 @@ title: "2026 年黑苹果（懒人）安装手把手教程"
 description: "黑苹果安装视频教程，以及夸克、迅雷和百度网盘懒人包下载入口汇总。"
 pubDate: 2026-06-21
 updatedDate: 2026-07-24
+heroImage: "../../assets/hackintosh-installation-guide-2026.png"
 category: "效率软件"
 tags:
   - 黑苹果

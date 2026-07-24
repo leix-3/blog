@@ -8,6 +8,13 @@ astro dev --background
 
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
+## Publishing articles
+
+- Every published article must have a `heroImage`.
+- When the user supplies a cover image, reuse it as the article cover.
+- When no cover is supplied, generate a relevant 16:9 cover before publishing.
+- New non-draft articles must appear automatically on the homepage; do not maintain a fixed manual list or hide articles after a fixed count.
+
 ## Documentation
 
 Full documentation: https://docs.astro.build
