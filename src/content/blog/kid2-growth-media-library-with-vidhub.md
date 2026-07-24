@@ -46,8 +46,8 @@ series: 家庭数字生活
 
 > 以下购买链接可能产生少量佣金，不影响你的购买价格。
 
-- [115 会员购买链接一](https://u.jd.com/9rakWih)
-- [115 会员购买链接二](https://u.jd.com/Zre2Efc)
+- [115 会员购买链接一](https://u.jd.com/9172oNU)
+- [115 会员购买链接二](https://u.jd.com/9172oNU)
 - [Kid2.0 的 115 网盘资源](https://115cdn.com/s/swsbmyf3z19?password=m8b3&)
 - [收集的 9000TB 115 网盘资源目录（按需转存）](https://www.kdocs.cn/l/cqBM72NrCiGY)
 
