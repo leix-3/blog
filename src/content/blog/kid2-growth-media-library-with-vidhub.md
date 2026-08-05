@@ -17,7 +17,6 @@ draft: false
 featured: true
 series: 家庭数字生活
 ---
-
 下面是本期视频配套的软件下载入口、儿童通识观影清单，以及 Kid2.0 相关资源链接。
 
 ## VidHub 官方下载
@@ -37,7 +36,76 @@ series: 家庭数字生活
 获取方法：
 
 1. [打开移动云盘分享链接](https://yun.139.com/shareweb/#/w/i/2w2KVu5oVNq8k)
-2. 使用手机号登录并转存，不限运营商
+
+top20动画电影
+
+链接: [https://yun.139.com/shareweb/#/w/i/2wFGree3btFnn](https://yun.139.com/shareweb/#/w/i/2wFGree3btFnn)  提取码:p8gt  
+
+链接: [https://yun.139.com/shareweb/#/w/i/2wFGsiiKBMU4v](https://yun.139.com/shareweb/#/w/i/2wFGsiiKBMU4v)  提取码:f262  
+
+
+
+迪士尼139部
+
+链接: [https://yun.139.com/shareweb/#/w/i/2wFGree3bv60j](https://yun.139.com/shareweb/#/w/i/2wFGree3bv60j)  提取码:7b4m
+
+
+
+斑马百科全集
+
+链接: [https://yun.139.com/shareweb/#/w/i/2wFGqTctLC5z9](https://yun.139.com/shareweb/#/w/i/2wFGqTctLC5z9)  提取码:7200 
+
+
+
+历史是一只喵 全集
+
+链接: [https://yun.139.com/shareweb/#/w/i/2wFGsSmd0ps62](https://yun.139.com/shareweb/#/w/i/2wFGsSmd0ps62)  提取码:t3f1  
+
+
+
+寻色中国
+
+链接: [https://yun.139.com/shareweb/#/w/i/2wFGtFpNka11w](https://yun.139.com/shareweb/#/w/i/2wFGtFpNka11w)  提取码:wb9q 
+
+
+
+B站up视频合集
+
+链接: [https://yun.139.com/shareweb/#/w/i/2wFGree3bwwj0](https://yun.139.com/shareweb/#/w/i/2wFGree3bwwj0)  提取码:pvju 
+
+
+
+豆瓣top250 电影合集
+
+链接: [https://yun.139.com/shareweb/#/w/i/2wFGqFbzQXE79](https://yun.139.com/shareweb/#/w/i/2wFGqFbzQXE79)  提取码:6rx0  
+
+
+
+宫崎骏动画合集
+
+链接: [https://yun.139.com/shareweb/#/w/i/2wFGsyjSEwZe0](https://yun.139.com/shareweb/#/w/i/2wFGsyjSEwZe0)  提取码:vcfz
+
+
+
+漫威DC电影合集
+
+链接: [https://yun.139.com/shareweb/#/w/i/2wFGsEkj7rupc](https://yun.139.com/shareweb/#/w/i/2wFGsEkj7rupc)  提取码:quij 
+
+
+
+奥特曼合集
+
+链接: [https://yun.139.com/shareweb/#/w/i/2wFGtQqsZ7h8p](https://yun.139.com/shareweb/#/w/i/2wFGtQqsZ7h8p)  提取码:w3om
+
+
+
+英语
+
+链接: [https://yun.139.com/shareweb/#/w/i/2wFGtQqt0bW64](https://yun.139.com/shareweb/#/w/i/2wFGtQqt0bW64)
+
+
+
+1. 使用手机号登录并转存，不限运营商
 
 也可以通过移动云盘微信小程序注册并转存 Kid2.0 资源。
 
