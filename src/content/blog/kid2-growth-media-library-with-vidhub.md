@@ -27,6 +27,14 @@ series: 家庭数字生活
 
 如果有ns，可以直接用nas的影视。比如说飞牛影视。
 
+## ## [阿雷QQ频道](https://pd.qq.com/s/9t1umpzfr?b=9)
+
+点击链接加入腾讯频道【阿雷资源库】：[https://pd.qq.com/s/9t1umpzfr?b=9](https://pd.qq.com/s/9t1umpzfr?b=9)
+
+因为很多的内容不予公开分享，私藏内容等，都会发布在QQ频道当中。就是频道容纳的人也比较多大家也可以发帖交流学习
+
+
+
 ## 儿童通识观影与 UP 主清单
 
 [打开儿童通识观影与 UP 主清单](https://my.feishu.cn/base/WkZIbLSsKaxhdps0urLc2uQxn1f?from=from_copylink)
