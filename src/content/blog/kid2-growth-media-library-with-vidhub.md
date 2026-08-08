@@ -39,6 +39,8 @@ series: 家庭数字生活
 
 获取方法：
 
+点击下方的任何一个资源，按照提示登录并转存
+
 1. [打开移动云盘分享链接](https://yun.139.com/shareweb/#/w/i/2w2KVu5oVNq8k)
 
 top20动画电影
@@ -107,11 +109,25 @@ B站up视频合集
 
 链接: [https://yun.139.com/shareweb/#/w/i/2wFGtQqt0bW64](https://yun.139.com/shareweb/#/w/i/2wFGtQqt0bW64)
 
+---
+
+---
 
 
-1. 使用手机号登录并转存，不限运营商
 
-也可以通过移动云盘微信小程序注册并转存 Kid2.0 资源。
+其他电影
+
+链接: [https://yun.139.com/shareweb/#/w/i/2wFGtzpkBAg5f](https://yun.139.com/shareweb/#/w/i/2wFGtzpkBAg5f)
+
+
+
+其他影视2
+
+链接: [https://yun.139.com/shareweb/#/w/i/2wFGuRuWTWG54](https://yun.139.com/shareweb/#/w/i/2wFGuRuWTWG54)
+
+复制内容打开移动云盘PC客户端，操作更方便哦
+
+
 
 ### 115 网盘
 
