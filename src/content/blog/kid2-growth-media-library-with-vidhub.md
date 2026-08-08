@@ -21,7 +21,11 @@ series: 家庭数字生活
 
 ## VidHub 官方下载
 
-[前往 VidHub 官方页面下载](https://zh.okaapps.com/product/1659622164)
+[前往 VidHub 官方页面下载，这款是付费的](https://zh.okaapps.com/product/1659622164)
+
+你也可以使用免费版的[网易爆米花](https://bmh.163.com/)
+
+如果有ns，可以直接用nas的影视。比如说飞牛影视。
 
 ## 儿童通识观影与 UP 主清单
 
