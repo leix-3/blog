@@ -142,10 +142,8 @@ B站up视频合集
 开通会员后空间较大，整体使用体验较好。文档中记录的套餐为：800 元、8 年会员、30TB 永久空间，具体价格与权益请以下单页面的实时信息为准。
 
 > 以下购买链接可能产生少量佣金，不影响你的购买价格。
->
-> ![image.png](../../assets/uploads/image.png)
 
-- [115 会员购买链接一](https://u.jd.com/9aV8vKI)
+- [115 网盘1年VIP会员+115TB空间 专享会员提速通道链接](> https://u.jd.com/kGt8b8P)
 - [Kid2.0 的 115 网盘资源](https://115cdn.com/s/swsbmyf3z19?password=m8b3&)
 - [收集的 9000TB 115 网盘资源目录（按需转存）](https://www.kdocs.cn/l/cqBM72NrCiGY)
 
