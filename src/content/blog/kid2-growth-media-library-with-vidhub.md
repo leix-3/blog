@@ -2,7 +2,7 @@
 title: Kid2.0 孩子个人成长影音库：搭建教程和懒人包资源
 description: Kid2.0 孩子个人成长影音库的 VidHub 下载入口、观影清单，以及移动云盘、115 网盘和夸克网盘资源汇总。
 pubDate: 2026-07-17
-updatedDate: 2026-07-23
+updatedDate: 2026-10-05
 heroImage: ../../assets/kid2-growth-media-library.jpg
 videoBvid: BV1Q9KJ6bEYw
 videoTitle: 低成本！搭建孩子专属私人成长影音库｜附懒人包＋清单，VidHub
@@ -40,6 +40,28 @@ series: 家庭数字生活
 [打开儿童通识观影与 UP 主清单](https://my.feishu.cn/base/WkZIbLSsKaxhdps0urLc2uQxn1f?from=from_copylink)
 
 ## Kid2.0 资源分享
+
+### 123 云盘
+
+Kid2.0 资源：
+
+- [打开 123 云盘分享链接](https://1716426.share.123pan.cn/123pan/asm9-u4mo3?pwd=didD#)
+- 提取码：`didD`
+
+#### 123 云盘会员购买入口
+
+> 说明：以下是推广链接，通过链接购买后我会获得几元佣金，不会影响你的购买价格。
+
+1. **【官方自营】123 云盘会员 VIP 6 年卡：50TB、不限速，支持网盘直链、存储和挂载盘**
+   - [打开淘宝下单链接](https://m.tb.cn/h.8yEXJJx)
+
+2. **123 云盘特权：标准容量 123TB＋5 年 VIP 会员，不限速网络存储、网盘扩容【包邮】**
+   - [打开淘宝下单链接](https://m.tb.cn/h.8CvXSeR)
+
+### 百度网盘（Kid2.0 视频上传中）
+
+- [打开百度网盘分享链接](https://pan.baidu.com/s/1D_6aSV_2mDaiOGDkVASCLQ)
+- 提取码：`otkx`
 
 ### 移动云盘（推荐）
 
