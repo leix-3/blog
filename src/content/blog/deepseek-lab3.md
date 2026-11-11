@@ -14,6 +14,8 @@ featured: false
 series: "家庭 AI 实验室"
 ---
 
+> **WorkBuddy 注册福利：**[点击这里注册 WorkBuddy](https://www.workbuddy.cn/events/invite?inviteCode=bug97d9yf)，注册即送 2000 积分。
+
 家庭 AI 实验室第 3 期，主要整理 **Agent2API** 和 **WorkBuddy 飞牛 x86 安装包**。需要的朋友可以直接通过下面的夸克网盘链接获取。
 
 ## Agent2API
