@@ -23,6 +23,14 @@ series: "家庭 AI 实验室"
 - [打开夸克网盘下载 Agent2API](https://pan.quark.cn/s/e60bd62c08c9)
 - 提取码：`RhBM`
 
+下载包内提供了多种版本，可以根据自己的设备和使用环境选择：
+
+- **源码版**：适合安装到 Docker 或其他 Linux 系统。你也可以把源码直接发给自己的 AI Agent，并告诉它：“请帮我安装到 Docker 中并完成配置。”
+- **Windows 版**：适合直接在 Windows 电脑上使用。
+- **Mac 版**：适合在 macOS 设备上使用。
+
+不确定选哪个版本时，先确认自己的操作系统；NAS、服务器或 Linux 主机通常优先考虑源码版和 Docker 部署。
+
 ## WorkBuddy 5.6.2.3 x86 飞牛安装包
 
 文件名：`workbuddy-5.6.2.3-x86.fpk`
