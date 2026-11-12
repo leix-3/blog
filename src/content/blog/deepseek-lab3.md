@@ -24,6 +24,8 @@ series: "家庭 AI 实验室"
 
 - [打开夸克网盘下载 Agent2API](https://pan.quark.cn/s/e60bd62c08c9)
 - 提取码：`RhBM`
+- [打开百度网盘下载 Agent2API](https://pan.baidu.com/s/1vRZcpfOEdG_eX-GYuHNqgg?pwd=i6mp)
+- 提取码：`i6mp`
 
 下载包内提供了多种版本，可以根据自己的设备和使用环境选择：
 
